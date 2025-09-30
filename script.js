@@ -468,7 +468,7 @@
         {"ind":"lupa","ter":"lali"},
         {"ind":"menunggu","ter":"ngenteni"},
         {"ind":"bertemu","ter":"ketemu"},
-        {"ind":"pergi","ter":"mlebu"},
+        {"ind":"pergi","ter":"pigi"},
         {"ind":"datang ","ter":"tèkè"},
         {"ind":"pulang","ter":"bali"},
         {"ind":"naik","ter":"munggah"},
@@ -824,7 +824,7 @@
     },
     "Kata Ganti": {
       "orang": [
-        {"ind":"saya","ter":"aku","img":"assets/img/saya.png"},
+        {"ind":"saya","ter":"me","img":"assets/img/saya.png"},
         {"ind":"aku","ter":"ku","img":"assets/img/aku.png"},
         {"ind":"kamu","ter":"kowe","img":"assets/img/kamu.png"},
         {"ind":"anda","ter":"sampeyan","img":"assets/img/anda.png"},
@@ -1021,7 +1021,7 @@
         {"ind":"sejauh","ter":"sajauh","img":"assets/img/sejauh.png"},
         {"ind":"sedalam","ter":"sedalam","img":"assets/img/sedalam.png"},
         {"ind":"setinggi","ter":"setinggi","img":"assets/img/setinggi.png"},
-        {"ind":"serendah","ter":"serendah","img":"assets/img/serendah.png"},
+        {"ind":"serendah","ter":"srendah","img":"assets/img/serendah.png"},
         {"ind":"secepat","ter":"secepat","img":"assets/img/secepat.png"},
         {"ind":"selambat","ter":"selambat","img":"assets/img/selambat.png"},
         {"ind":"sebaik","ter":"sebaik","img":"assets/img/sebaik.png"},
@@ -1059,7 +1059,7 @@
     "Preposisi": {
       "Kata Depan": [
         {"ind":"di","ter":"ning","img":"assets/img/di.png"},
-        {"ind":"ke","ter":"meneh","img":"assets/img/ke.png"},
+        {"ind":"ke","ter":"kes","img":"assets/img/ke.png"},
         {"ind":"dari","ter":"saka","img":"assets/img/dari.png"},
         {"ind":"dengan","ter":"karo","img":"assets/img/dengan.png"},
         {"ind":"untuk","ter":"kanggo","img":"assets/img/untuk.png"},
