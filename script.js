@@ -12,7 +12,7 @@
         {"ind":"ayah","ter":"baba","img":"https://img.freepik.com/premium-photo/3d-illustration-cartoon-character-with-happy-expression-his-face_1057-44581.jpg?w=360"},
         {"ind":"ibu","ter":"yaya","img":"https://img.freepik.com/free-photo/celebration-labour-day-with-3d-cartoon-portrait-working-woman_23-2151306628.jpg?semt=ais_hybrid&w=740&q=80"},
         {"ind":"anak","ter":"ana","img":"https://marketplace.canva.com/4aiT4/MAGid44aiT4/1/tl/canva-happy-cartoon-boy-drawing-outdoors-MAGid44aiT4.jpg"},
-        {"ind":"anak laki-laki","ter":"ngofa nunau","img":"https://png.pngtree.com/png-clipart/20250119/original/pngtree-3d-animated-boy-character-with-cool-outfit-and-energetic-pose-png-image_19860542.png"},
+        {"ind":"anak laki laki","ter":"ngofa nunau","img":"https://png.pngtree.com/png-clipart/20250119/original/pngtree-3d-animated-boy-character-with-cool-outfit-and-energetic-pose-png-image_19860542.png"},
         {"ind":"anak perempuan","ter":"ngofa foheka","img":"https://i.pinimg.com/236x/56/e5/06/56e506857047aa0d16225da817f68108.jpg"},
         {"ind":"kakak","ter":"abang","img":"https://img.freepik.com/foto-gratis/pria-kebugaran-kartun-3d_23-2151691490.jpg"},
         {"ind":"adik","ter":"adek","img":"https://png.pngtree.com/png-vector/20250823/ourmid/pngtree-2d-animated-character-for-a-kids-anime-style-character-character-png-image_17303971.png"},
@@ -28,7 +28,7 @@
         {"ind":"menantu","ter":"menantu","img":"https://i.pinimg.com/736x/a0/38/f6/a038f6eb6bc809b3f70938d09f8f9edc.jpg"},
         {"ind":"keluarga","ter":"keluarga","img":"https://cdn.pixabay.com/photo/2023/11/10/18/11/ai-generated-8379860_1280.png"},
         {"ind":"saudara","ter":"hira sebira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
-        {"ind":"saudara laki-laki","ter":"hira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
+        {"ind":"saudara laki laki","ter":"hira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
         {"ind":"saudara perempuan","ter":"fira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"}
       ],
       "Tubuh": [
