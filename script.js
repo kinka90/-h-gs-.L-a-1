@@ -27,9 +27,7 @@
         {"ind":"mertua","ter":"mertua","img":"https://img.pikbest.com/png-images/20250225/happy-muslim-couple-3d-cartoon-character_11555574.png!w700wp"},
         {"ind":"menantu","ter":"menantu","img":"https://i.pinimg.com/736x/a0/38/f6/a038f6eb6bc809b3f70938d09f8f9edc.jpg"},
         {"ind":"keluarga","ter":"keluarga","img":"https://cdn.pixabay.com/photo/2023/11/10/18/11/ai-generated-8379860_1280.png"},
-        {"ind":"saudara","ter":"hira sebira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
-        {"ind":"saudara laki laki","ter":"hira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
-        {"ind":"saudara perempuan","ter":"fira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"}
+        {"ind":"saudara","ter":"hira sebira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"}
       ],
       "Tubuh": [
         {"ind":"kepala","ter":"ulu","img":"https://i.pinimg.com/1200x/01/a5/d6/01a5d647b20221ae14f12b5b7dc40873.jpg"},
