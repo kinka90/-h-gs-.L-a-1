@@ -1255,32 +1255,45 @@
   // ======================
   // Translasi multi kata/frasa
   // ======================
-  function translateWithMap(text, dir){
+    function translateWithMap(text, dir){
     if(!text) return "";
     const dict = dir === 'id-to-tt' ? mapIdToTt : mapTtToId;
-    const tokens = text.match(/\w+|[^\w\s]/g) || [];
-    let out = [], i=0;
 
-    while(i < tokens.length){
-      let match=null, matchLen=0;
-      for(let len=Math.min(10,tokens.length-i); len>0; len--){
-        const phrase=tokens.slice(i,i+len).join(" ").toLowerCase();
-        if(dict.has(phrase)){
-          match=dict.get(phrase); matchLen=len; break;
+    // 🔧 Normalisasi ringan
+    text = text.toLowerCase()
+      .replace(/\s*-\s*/g, "-")   // rapikan tanda hubung
+      .replace(/\s+/g, " ")       // hapus spasi ganda
+      .trim();
+
+    // 🔧 ubah regex agar tanda hubung tidak terpisah dari kata
+    const tokens = text.match(/[a-zA-Z0-9-]+|[^\w\s]/g) || [];
+    let out = [], i = 0;
+
+    while (i < tokens.length) {
+      let match = null, matchLen = 0;
+
+      // coba cocokkan frasa paling panjang dulu (maks 9 kata)
+      for (let len = Math.min(9, tokens.length - i); len > 0; len--) {
+        const phrase = tokens.slice(i, i + len).join(" ");
+        if (dict.has(phrase)) {
+          match = dict.get(phrase);
+          matchLen = len;
+          break;
         }
       }
-      if(match){
-        if(i===0 && /^[A-Z]/.test(text.trim())){
-          match = match.charAt(0).toUpperCase() + match.slice(1);
-        }
+
+      if (match) {
         out.push(match);
-        i+=matchLen;
-      }else{
-        out.push(tokens[i]); i++;
+        i += matchLen;
+      } else {
+        out.push(tokens[i]);
+        i++;
       }
     }
+
     return out.join(" ");
   }
+
 
   // ======================
   // GPT API
