@@ -12,8 +12,8 @@
         {"ind":"ayah","ter":"baba","img":"https://img.freepik.com/premium-photo/3d-illustration-cartoon-character-with-happy-expression-his-face_1057-44581.jpg?w=360"},
         {"ind":"ibu","ter":"yaya","img":"https://img.freepik.com/free-photo/celebration-labour-day-with-3d-cartoon-portrait-working-woman_23-2151306628.jpg?semt=ais_hybrid&w=740&q=80"},
         {"ind":"anak","ter":"ana","img":"https://marketplace.canva.com/4aiT4/MAGid44aiT4/1/tl/canva-happy-cartoon-boy-drawing-outdoors-MAGid44aiT4.jpg"},
-        {"ind":"saudara laki-laki","ter":"lanang","img":"https://png.pngtree.com/png-clipart/20250119/original/pngtree-3d-animated-boy-character-with-cool-outfit-and-energetic-pose-png-image_19860542.png"},
-        {"ind":"saudara perempuan","ter":"wadon","img":"https://i.pinimg.com/236x/56/e5/06/56e506857047aa0d16225da817f68108.jpg"},
+        {"ind":"anak laki-laki","ter":"ngofa nunau","img":"https://png.pngtree.com/png-clipart/20250119/original/pngtree-3d-animated-boy-character-with-cool-outfit-and-energetic-pose-png-image_19860542.png"},
+        {"ind":"anak perempuan","ter":"ngofa foheka","img":"https://i.pinimg.com/236x/56/e5/06/56e506857047aa0d16225da817f68108.jpg"},
         {"ind":"kakak","ter":"abang","img":"https://img.freepik.com/foto-gratis/pria-kebugaran-kartun-3d_23-2151691490.jpg"},
         {"ind":"adik","ter":"adek","img":"https://png.pngtree.com/png-vector/20250823/ourmid/pngtree-2d-animated-character-for-a-kids-anime-style-character-character-png-image_17303971.png"},
         {"ind":"kakek","ter":"tete","img":"https://img.freepik.com/premium-psd/3d-grandfather-cartoon-character-icon-transparent-background_220739-74495.jpg"},
@@ -27,7 +27,9 @@
         {"ind":"mertua","ter":"mertua","img":"https://img.pikbest.com/png-images/20250225/happy-muslim-couple-3d-cartoon-character_11555574.png!w700wp"},
         {"ind":"menantu","ter":"menantu","img":"https://i.pinimg.com/736x/a0/38/f6/a038f6eb6bc809b3f70938d09f8f9edc.jpg"},
         {"ind":"keluarga","ter":"keluarga","img":"https://cdn.pixabay.com/photo/2023/11/10/18/11/ai-generated-8379860_1280.png"},
-        {"ind":"saudara","ter":"saudara","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"}
+        {"ind":"saudara","ter":"hira sebira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
+        {"ind":"saudara laki-laki","ter":"hira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"},
+        {"ind":"saudara perempuan","ter":"fira","img":"https://img.freepik.com/premium-photo/3d-cute-cartoon-girl-studying-education-illustration_988987-2924.jpg"}
       ],
       "Tubuh": [
         {"ind":"kepala","ter":"ulu","img":"https://i.pinimg.com/1200x/01/a5/d6/01a5d647b20221ae14f12b5b7dc40873.jpg"},
