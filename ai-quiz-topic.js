@@ -271,8 +271,57 @@
   }
 
   function downloadPDF(){
-    alert('Fungsi PDF belum diimplementasikan di versi ini. Bisa pakai html2pdf.js atau jsPDF.');
+  const wrap = qs('#questions-wrap');
+  if(!wrap){ alert('Konten soal tidak ditemukan.'); return; }
+
+  const pdfContent = document.createElement('div');
+  pdfContent.style.padding = '20px';
+  pdfContent.style.fontFamily = 'Arial, sans-serif';
+  pdfContent.innerHTML = `
+    <h2 style="text-align:center; color:#1f3c88;">Quiz Hasil</h2>
+    <p><strong>Nama:</strong> ${escapeHtml(STATE.user.name)}<br>
+    <strong>Kelas:</strong> ${escapeHtml(STATE.user.kelas)}<br>
+    <strong>Topik:</strong> ${escapeHtml(STATE.config.topic)}<br>
+    <strong>Skor:</strong> ${computeCurrentScore()} / 100</p>
+    <hr style="border:1px solid #1f3c88;">
+  `;
+
+  STATE.questions.forEach((q,idx)=>{
+    const userAnswer = STATE.answers[idx]?.choice || '-';
+    const locked = STATE.answers[idx]?.locked;
+    const review = STATE.answers[idx]?.review || {};
+    pdfContent.innerHTML += `
+      <div style="margin-bottom:15px; padding:10px; border-radius:8px; background:#f0f4ff;">
+        <div style="font-weight:bold; color:#1f3c88;">Soal ${idx+1}:</div>
+        <div>${escapeHtml(q.question)}</div>
+        <ul style="list-style-type:none; padding-left:0; margin-top:8px;">
+          <li>A. ${escapeHtml(q.choices.A)}</li>
+          <li>B. ${escapeHtml(q.choices.B)}</li>
+          <li>C. ${escapeHtml(q.choices.C)}</li>
+          <li>D. ${escapeHtml(q.choices.D)}</li>
+        </ul>
+        <div><strong>Jawaban Anda:</strong> ${escapeHtml(userAnswer)} ${locked ? `(Benar: ${review.correct?'✅':'❌'})` : '(Belum dijawab)'}</div>
+        ${review.reason ? `<div><em>Alasan:</em> ${escapeHtml(review.reason)}</div>` : ''}
+        ${review.reason_id ? `<div><em>Terjemahan (ID):</em> ${escapeHtml(review.reason_id)}</div>` : ''}
+      </div>
+    `;
+  });
+
+  if(typeof html2pdf === 'undefined'){
+    alert('html2pdf.js belum dimuat! Tambahkan <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>');
+    return;
   }
+
+  const opt = {
+    margin: 10,
+    filename: `Quiz_${STATE.user.name}_${STATE.config.topic}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(pdfContent).save();
+}
 
   // ---------- Utils ----------
   function escapeHtml(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
@@ -281,3 +330,4 @@
   // ---------- Mount ----------
   init();
 })();
+
