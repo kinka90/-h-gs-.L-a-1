@@ -201,6 +201,9 @@
       if(startBtn) { startBtn.disabled = false; startBtn.textContent = 'Mulai Quiz'; }
     }
   }
+   safeOn('#q-back', 'click', () => {
+      window.location.href = 'index.html'; // arahkan ke halaman kamus
+   });
 
   function updateSummaryHeader(){
     safeSetText('#summary-name', STATE.user.name);
@@ -616,3 +619,4 @@
   init();
 
 })();
+
