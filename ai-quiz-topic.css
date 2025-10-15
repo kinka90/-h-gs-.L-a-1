@@ -1,4 +1,4 @@
-/* ai-quiz-topic.css — bersih, responsif, lembar ujian PDF friendly */
+/* ai-quiz-topic.css — versi perbaikan scrollable, responsif, PDF friendly */
 
 :root{
   --bg:#f5fbff;
@@ -33,12 +33,28 @@ body{margin:0;background:var(--bg);color:#083046;}
 .form-select{padding:10px;border-radius:8px;border:1px solid rgba(3,59,99,0.08);}
 
 /* quiz screen */
-.quiz-left{flex:1;display:flex;flex-direction:column;gap:12px;overflow:auto;padding-right:6px;}
+.quiz-left{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  overflow-y:auto;         /* scroll vertical aktif */
+  max-height: calc(100vh - 150px); /* pastikan tinggi container */
+  padding-right:6px;
+}
+#questions-wrap {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* quiz right / info panel */
 .quiz-right{width:340px;max-width:36%;display:flex;flex-direction:column;gap:12px;overflow:auto;}
 .info-panel{background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 22px rgba(2,18,40,0.03);}
 
 /* question card */
-.question-card{background:#fff;padding:14px;border-radius:10px;box-shadow:0 8px 30px rgba(2,18,40,0.03);margin-bottom:12px;}
+.question-card{background:#fff;padding:14px;border-radius:10px;box-shadow:0 8px 30px rgba(2,18,40,0.03);}
+.question-card.active-question{border:2px solid var(--accent);background:#eef6ff;}
 .q-number{font-weight:700;margin-bottom:8px;}
 .q-text{font-size:16px;margin-bottom:12px;}
 .choices-wrap{display:flex;flex-direction:column;gap:8px;}
