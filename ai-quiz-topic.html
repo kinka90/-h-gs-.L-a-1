@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Quiz — Topik Bebas</title>
+  <link rel="stylesheet" href="ai-quiz-topic.css">
+</head>
+<body>
+  <div id="quiz-overlay">
+    <div id="quiz-card" role="dialog" aria-modal="true">
+      <header id="quiz-header">
+        <div class="logo">Q</div>
+        <h2>AI Quiz — Topik Bebas</h2>
+        <div class="controls">
+          <button id="quiz-close" class="btn-ghost">Tutup</button>
+        </div>
+      </header>
+
+      <main id="quiz-main">
+        <!-- Intro -->
+        <section id="quiz-intro" class="screen">
+          <div class="intro-card">
+            <h3>Isi Identitas & Topik</h3>
+            <p class="muted">Masukkan Nama, Kelas, Topik. AI akan membuat soal baru sesuai topik dan bahasa yang dipilih.</p>
+
+            <div class="form-row">
+              <input id="q-name" class="form-input" placeholder="Nama (mis. Ahmad)"/>
+              <input id="q-class" class="form-input" placeholder="Kelas (mis. 8A)"/>
+            </div>
+
+            <div class="form-row" style="margin-top:8px;">
+              <input id="q-topic" class="form-input" placeholder="Topik (mis. hewan langka, planet, sejarah Ternate)"/>
+              <select id="q-count" class="form-select">
+                <option value="10">10 soal</option>
+                <option value="15">15 soal</option>
+                <option value="20">20 soal</option>
+                <option value="25">25 soal</option>
+                <option value="30">30 soal</option>
+              </select>
+            </div>
+
+            <div class="form-row" style="margin-top:8px;">
+              <div style="display:flex;gap:8px;align-items:center;">
+                <label class="muted">Bahasa Soal:</label>
+                <label><input type="radio" name="lang" value="id" checked> Indonesia</label>
+                <label><input type="radio" name="lang" value="ternate"> Ternate</label>
+              </div>
+
+              <div style="margin-left:auto; display:flex; gap:8px;">
+                <button id="q-start" class="btn-primary">Mulai Quiz</button>
+                <button id="q-cancel" class="btn-ghost">Batal</button>
+              </div>
+            </div>
+
+            <div id="intro-note" class="muted" style="margin-top:10px;">
+              Soal dibuat oleh AI. Jika AI lambat/eror, tampilkan pesan dan coba lagi. Keluaran: multiple-choice (A–D), disertai penjelasan.
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz screen -->
+        <section id="quiz-screen" class="screen" style="display:none;">
+          <div class="quiz-left">
+            <div id="quiz-progress" class="small-muted">Soal 0 / 0</div>
+            <div id="questions-wrap"></div>
+
+            <div style="display:flex; gap:10px; margin-top:12px; align-items:center;">
+              <button id="prev-q" class="btn-ghost">Sebelumnya</button>
+              <button id="next-q" class="btn-ghost">Berikutnya</button>
+              <button id="finish-q" class="btn-primary" style="margin-left:auto;">Selesai & Nilai</button>
+            </div>
+          </div>
+
+          <aside class="quiz-right">
+            <div class="info-panel">
+              <div><strong>Ringkasan</strong></div>
+              <div style="margin-top:8px;" class="muted">Nama: <span id="summary-name"></span></div>
+              <div class="muted">Kelas: <span id="summary-class"></span></div>
+              <div class="muted">Topik: <span id="summary-topic"></span></div>
+              <div style="margin-top:8px;">Jumlah soal: <span id="summary-count"></span></div>
+              <div style="margin-top:8px;">Skor sementara: <span id="summary-score">0 / 100</span></div>
+
+              <div style="margin-top:12px;">
+                <button id="quiz-abort" class="btn-ghost">Batalkan Kuiz</button>
+              </div>
+            </div>
+
+            <div class="info-panel" style="margin-top:12px;">
+              <div><strong>Petunjuk</strong></div>
+              <ol style="margin-top:8px; font-size:13px;">
+                <li>Pilih jawaban → terkunci (tidak bisa diubah).</li>
+                <li>Klik "Selesai & Nilai" untuk melihat skor akhir dan penjelasan.</li>
+                <li>Unduh PDF hasil yang berisi lembar ujian.</li>
+              </ol>
+            </div>
+          </aside>
+        </section>
+
+        <!-- Result -->
+        <section id="quiz-result" class="screen" style="display:none;">
+          <div class="result-card">
+            <h3>Hasil Kuiz</h3>
+            <div id="result-summary" class="muted"></div>
+            <div id="result-score" style="font-size:28px; font-weight:700; margin-top:10px;">0 / 100</div>
+            <div id="result-motivation" style="margin-top:8px; font-weight:600;"></div>
+
+            <div style="margin-top:12px;">
+              <button id="download-pdf" class="btn-primary">Unduh Hasil (PDF)</button>
+              <button id="retry-quiz" class="btn-ghost">Coba Topik Lain</button>
+            </div>
+
+            <hr style="margin:16px 0;">
+            <div id="result-details" style="max-height:380px; overflow:auto;"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer id="quiz-footer">
+        <div class="muted">AI Quiz — Topik Bebas</div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="ai-quiz-topic.js"></script>
+</body>
+</html>
