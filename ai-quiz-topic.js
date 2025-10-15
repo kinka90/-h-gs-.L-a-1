@@ -270,64 +270,83 @@
     if(typeof confetti==='function'){ confetti({particleCount:100,spread:70,origin:{y:0.6}}); }
   }
 
-  function downloadPDF(){
-  const wrap = qs('#questions-wrap');
-  if(!wrap){ alert('Konten soal tidak ditemukan.'); return; }
+  // ---------- download PDF ----------
+  async function downloadPDF(){
+    try {
+      await ensureJsPDF();
+    } catch(e){
+      alert('Gagal muat engine PDF: ' + e.message);
+      return;
+    }
+    const { jsPDF } = window.jspdf || window.jspPDF || {};
+    if(!jsPDF){ alert('jsPDF tidak tersedia.'); return; }
+    const doc = new jsPDF({ unit:'pt', format:'a4' });
+    let y = 40;
+    doc.setFontSize(14);
+    doc.text('Lembar Ujian — AI Quiz', 40, y); y += 20;
+    doc.setFontSize(10);
+    doc.text(`Nama: ${STATE.user.name}    Kelas: ${STATE.user.kelas}`, 40, y); y += 14;
+    doc.text(`Topik: ${STATE.config.topic}    Bahasa soal: ${STATE.config.lang === 'id' ? 'Indonesia' : 'Ternate'}`, 40, y); y += 14;
+    doc.text(`Tanggal: ${(new Date()).toLocaleString()}`, 40, y); y += 18;
 
-  const pdfContent = document.createElement('div');
-  pdfContent.style.padding = '20px';
-  pdfContent.style.fontFamily = 'Arial, sans-serif';
-  pdfContent.innerHTML = `
-    <h2 style="text-align:center; color:#1f3c88;">Quiz Hasil</h2>
-    <p><strong>Nama:</strong> ${escapeHtml(STATE.user.name)}<br>
-    <strong>Kelas:</strong> ${escapeHtml(STATE.user.kelas)}<br>
-    <strong>Topik:</strong> ${escapeHtml(STATE.config.topic)}<br>
-    <strong>Skor:</strong> ${computeCurrentScore()} / 100</p>
-    <hr style="border:1px solid #1f3c88;">
-  `;
+    const per = computePerQuestionPoint();
+    let totalScore = computeCurrentScore();
+    doc.text(`Skor akhir: ${totalScore} / 100`, 40, y); y += 18;
 
-  STATE.questions.forEach((q,idx)=>{
-    const userAnswer = STATE.answers[idx]?.choice || '-';
-    const locked = STATE.answers[idx]?.locked;
-    const review = STATE.answers[idx]?.review || {};
-    pdfContent.innerHTML += `
-      <div style="margin-bottom:15px; padding:10px; border-radius:8px; background:#f0f4ff;">
-        <div style="font-weight:bold; color:#1f3c88;">Soal ${idx+1}:</div>
-        <div>${escapeHtml(q.question)}</div>
-        <ul style="list-style-type:none; padding-left:0; margin-top:8px;">
-          <li>A. ${escapeHtml(q.choices.A)}</li>
-          <li>B. ${escapeHtml(q.choices.B)}</li>
-          <li>C. ${escapeHtml(q.choices.C)}</li>
-          <li>D. ${escapeHtml(q.choices.D)}</li>
-        </ul>
-        <div><strong>Jawaban Anda:</strong> ${escapeHtml(userAnswer)} ${locked ? `(Benar: ${review.correct?'✅':'❌'})` : '(Belum dijawab)'}</div>
-        ${review.reason ? `<div><em>Alasan:</em> ${escapeHtml(review.reason)}</div>` : ''}
-        ${review.reason_id ? `<div><em>Terjemahan (ID):</em> ${escapeHtml(review.reason_id)}</div>` : ''}
-      </div>
-    `;
-  });
+    doc.setFontSize(11);
+    doc.text('Rincian soal:', 40, y); y += 14;
+    STATE.questions.forEach((q,i) => {
+      if(y > 720){ doc.addPage(); y = 40; }
+      doc.text(`${i+1}. ${q.question}`, 40, y); y += 12;
+      ['A','B','C','D'].forEach(L=>{
+        const txt = q.choices[L] || '';
+        doc.text(`   ${L}. ${txt}`, 56, y); y += 10;
+      });
+      const a = STATE.answers[i] || {};
+      const ua = a.choice || '-';
+      const isCorrect = a.review && a.review.correct;
+      const score = isCorrect ? per : 0;
+      doc.text(`   Jawaban Anda: ${ua}    Kunci: ${q.answer}    Skor: ${Math.round(score*100)/100}`, 56, y); y += 12;
+      const reason = (a.review && (a.review.reason_id || a.review.reason)) || '';
+      if(reason){
+        const truncated = reason.length > 140 ? reason.slice(0,137) + '...' : reason;
+        doc.text(`   Alasan: ${truncated}`, 56, y); y += 14;
+      } else y += 6;
+    });
 
-  if(typeof html2pdf === 'undefined'){
-    alert('html2pdf.js belum dimuat! Tambahkan <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>');
-    return;
+    const fname = `lembar_ujian_${STATE.user.name.replace(/\s+/g,'_')}_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+    doc.save(fname);
   }
 
-  const opt = {
-    margin: 10,
-    filename: `Quiz_${STATE.user.name}_${STATE.config.topic}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
+  // ---------- confetti ----------
+  async function fireConfetti(){
+    try {
+      if(!window.confetti) await loadScript('https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js');
+      window.confetti && window.confetti({ particleCount: 100, spread: 65, origin: { y: 0.6 } });
+    } catch(e){}
+  }
 
-  html2pdf().set(opt).from(pdfContent).save();
-}
+  // ---------- helpers ----------
+  function tryParseJSON(text){
+    if(!text) return null;
+    // direct parse
+    try { return JSON.parse(text); } catch(e){}
+    // code block
+    const codeMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+    if(codeMatch){ try { return JSON.parse(codeMatch[1]); } catch(e){} }
+    // find braces
+    const s = text.indexOf('{'), e = text.lastIndexOf('}');
+    if(s>=0 && e>0){ try { return JSON.parse(text.substring(s,e+1)); } catch(e){} }
+    // array only
+    const sa = text.indexOf('['), ea = text.lastIndexOf(']');
+    if(sa>=0 && ea>0){ try { return JSON.parse(text.substring(sa,ea+1)); } catch(e){} }
+    return null;
+  }
+  function escapeHtml(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g, ch=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch])); }
+  function loadScript(src){ return new Promise((res, rej)=>{ const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = ()=> rej(new Error('Gagal muat '+src)); document.head.appendChild(s); }); }
+  function ensureJsPDF(){ if(window.jspdf) return Promise.resolve(window.jspdf); return new Promise((res, rej)=>{ const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'; s.onload = ()=> res(window.jspdf || window.jspPDF || window.jspdf); s.onerror = ()=> rej(new Error('Gagal memuat jsPDF')); document.head.appendChild(s); }); }
 
-  // ---------- Utils ----------
-  function escapeHtml(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
-  function tryParseJSON(txt){ try{return JSON.parse(txt);}catch(e){return null;} }
-
-  // ---------- Mount ----------
+  // mount
   init();
-})();
 
+})();
