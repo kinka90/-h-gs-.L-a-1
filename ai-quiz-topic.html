@@ -3,102 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Quiz</title>
+<title>AI Quiz — Elegant Version</title>
+
+<!-- ===== CSS ===== -->
 <style>
-/* ====== CSS ai-quiz-topic ====== */
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f6fa;
-  color: #333;
-  margin: 0;
-  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(120deg, #f6d365, #fda085);
+  margin: 0; padding: 0; color: #333;
 }
 #quiz-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999;
 }
 #quiz-intro, #quiz-screen, #quiz-result {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 800px;
-  width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: #fff; border-radius: 16px; padding: 24px;
+  max-width: 850px; width: 95%; box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  color: #333;
 }
-h2, h3, h4 { margin: 0 0 10px 0; }
-input[type=text], input[type=number], select {
-  width: 100%;
-  padding: 8px 10px;
-  margin: 6px 0 12px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+h2 { margin-top:0; font-size: 1.8rem; color:#222; text-align:center; }
+input[type=text], input[type=number] {
+  width: 100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;
+  font-size:1rem;
 }
-label { display: block; margin-bottom: 4px; font-weight: 500; }
 button {
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 0.95rem;
-  transition: background 0.2s, transform 0.1s;
+  cursor:pointer; border:none; border-radius:8px; padding:10px 18px; font-size:1rem; transition:0.2s;
 }
-button:hover { transform: scale(1.03); }
-button:active { transform: scale(0.98); }
-.btn-ghost { background: #e0e0e0; color: #333; }
-.btn-ghost:hover { background: #d4d4d4; }
-button:disabled { background: #ccc; cursor: not-allowed; }
-.question-card {
-  background: #fafafa;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.q-number { font-weight: 600; margin-bottom: 8px; }
-.q-text { font-size: 1rem; margin-bottom: 12px; }
-.choices-wrap { display: flex; flex-direction: column; gap: 10px; }
-.choice {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #fff;
-  transition: background 0.2s, border 0.2s;
-}
-.choice:hover { background: #f0f8ff; border-color: #4a90e2; }
-.choice.selected { background: #4a90e2; color: #fff; border-color: #357ab8; }
-.choice .letter { font-weight: 700; width: 20px; }
-.small-muted { font-size: 0.85rem; color: #666; }
-.muted { font-size: 0.9rem; color: #888; }
+button:hover { transform:scale(1.05); }
+button:disabled { background:#ccc; cursor:not-allowed; }
+.btn-primary { background:#4a90e2; color:#fff; }
+.btn-primary:hover { background:#357ab8; }
+.btn-ghost { background:#f0f0f0; color:#333; }
 #questions-wrap {
-  max-height: 500px;
-  overflow-y: auto;
-  scroll-behavior: smooth;
+  max-height: 480px; overflow-y:auto; scroll-behavior:smooth; margin-bottom:12px;
 }
-#quiz-screen .nav-buttons { display: flex; justify-content: space-between; margin-top: 16px; }
-#quiz-screen .nav-buttons button { flex: 1; margin: 0 4px; }
-#summary-score, #quiz-progress, #qa-summary { font-weight: 600; }
-#quiz-result { text-align: center; }
-#quiz-result #result-feedback { margin-top: 12px; font-size: 1rem; color: #444; }
-@media (max-width: 600px) {
-  #quiz-intro, #quiz-screen, #quiz-result { padding: 16px; }
-  .choices-wrap { gap: 8px; }
-  button { font-size: 0.9rem; padding: 6px 12px; }
+.question-card {
+  background:#fdfdfd; border-left:5px solid #4a90e2; border-radius:12px;
+  padding:16px; margin-bottom:16px; transition:0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+.question-card:hover { box-shadow:0 6px 18px rgba(0,0,0,0.15); }
+.q-number { font-weight:700; font-size:1.05rem; margin-bottom:6px; }
+.q-text { font-size:1rem; margin-bottom:10px; }
+.choices-wrap { display:flex; flex-direction:column; gap:10px; }
+.choice {
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px;
+  border:1px solid #ccc; background:#fff; transition:0.2s;
+}
+.choice:hover { background:#e6f0ff; border-color:#4a90e2; }
+.choice.selected { background:#4a90e2; color:#fff; border-color:#357ab8; }
+.choice .letter { font-weight:700; width:22px; text-align:center; }
+.small-muted { font-size:0.85rem; color:#666; }
+.muted { font-size:0.9rem; color:#888; }
+.nav-buttons { display:flex; justify-content:space-between; margin-top:16px; }
+.nav-buttons button { flex:1; margin:0 4px; }
+#quiz-result { text-align:center; }
+#result-details { text-align:left; max-height:400px; overflow-y:auto; margin-top:12px; padding:8px; background:#f9f9f9; border-radius:12px; }
+#result-details div { padding:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
+@media(max-width:600px){
+  #quiz-intro,#quiz-screen,#quiz-result{padding:16px;}
+  .choices-wrap { gap:8px; }
+  button { font-size:0.9rem; padding:8px 12px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Overlay -->
 <div id="quiz-overlay">
-  <!-- Intro screen -->
+  <!-- Intro -->
   <div id="quiz-intro">
     <h2>AI Quiz</h2>
     <label for="q-name">Nama:</label>
@@ -109,16 +80,16 @@ button:disabled { background: #ccc; cursor: not-allowed; }
     <input type="text" id="q-topic">
     <label for="q-count">Jumlah Soal:</label>
     <input type="number" id="q-count" value="10" min="1" max="50">
-    <div style="margin-bottom:10px;">
+    <div style="margin-bottom:12px;">
       <label><input type="radio" name="lang" value="id" checked> Bahasa Indonesia</label>
       <label><input type="radio" name="lang" value="ternate"> Bahasa Ternate</label>
     </div>
-    <button id="q-start">Mulai Quiz</button>
+    <button id="q-start" class="btn-primary">Mulai Quiz</button>
   </div>
 
   <!-- Quiz screen -->
   <div id="quiz-screen" style="display:none;">
-    <div id="summary-header" style="margin-bottom:16px;">
+    <div id="summary-header" style="margin-bottom:16px; text-align:left;">
       <div>Nama: <span id="summary-name"></span></div>
       <div>Kelas: <span id="summary-class"></span></div>
       <div>Topik: <span id="summary-topic"></span></div>
@@ -126,29 +97,33 @@ button:disabled { background: #ccc; cursor: not-allowed; }
       <div>Skor: <span id="summary-score">0</span></div>
       <div id="quiz-progress">Soal 1 / 10</div>
     </div>
-
     <div id="questions-wrap"></div>
-
     <div class="nav-buttons">
       <button id="prev-q" class="btn-ghost">Sebelumnya</button>
       <button id="next-q" class="btn-ghost">Berikutnya</button>
-      <button id="finish-q" class="btn-ghost">Selesai</button>
+      <button id="finish-q" class="btn-primary">Selesai</button>
     </div>
+    <div style="margin-top:8px; text-align:left;" id="qa-summary"></div>
   </div>
 
-  <!-- Result screen -->
+  <!-- Result -->
   <div id="quiz-result" style="display:none;">
     <h2>Hasil Quiz</h2>
     <div>Skor Akhir: <span id="result-score"></span></div>
     <div id="result-motivation" style="margin-top:10px;"></div>
     <div id="result-summary" style="margin-top:6px; font-size:0.9rem;"></div>
-    <div id="result-details" style="margin-top:12px; text-align:left; max-height:400px; overflow-y:auto;"></div>
-    <button id="retry-quiz" class="btn-ghost" style="margin-top:10px;">Ulangi Quiz</button>
-    <button id="download-pdf" class="btn-ghost" style="margin-top:10px;">Download PDF</button>
+    <div id="result-details"></div>
+    <div style="margin-top:12px;">
+      <button id="retry-quiz" class="btn-ghost">Ulangi Quiz</button>
+      <button id="download-pdf" class="btn-primary">Download PDF</button>
+    </div>
   </div>
 </div>
 
-<!-- JS -->
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Quiz JS -->
 <script src="ai-quiz-topic.js"></script>
 </body>
 </html>
